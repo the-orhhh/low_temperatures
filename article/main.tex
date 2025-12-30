@@ -15,51 +15,10 @@
 \usepackage{graphicx}
 \usepackage{comment}
 \usepackage{fancyhdr}
-\usepackage{titling}
-\usepackage[
-backend=biber,
-%style=alphabetic,
-sorting=none
-]{biblatex}
+\usepackage[backend=biber,sorting=none]{biblatex}
 \addbibresource{citations.bib}
 
-\setlength{\droptitle}{-7em}
-
-\pretitle{%
-    \begin{center}
-    % Ensure you have the graphicx package loaded in your preamble
-    \includegraphics[width=4.5cm]{TAU_facultot_logos-07-exact-science-07.png}\\[\medskipamount]
-    \large School of Physics and Astronomy\\
-    Tel Aviv University\\[\bigskipamount]
-    \LARGE \bfseries
-}
 \title{Observation of Atmospheric Muons and Measurement of their Lifetime}
-\posttitle{\end{center}}
-
-% The following packages can be found on http:\\www.ctan.org
-%\usepackage{graphics} % for pdf, bitmapped graphics files
-%\usepackage{epsfig} % for postscript graphics files
-%\usepackage{mathptmx} % assumes new font selection scheme installed
-%\usepackage{mathptmx} % assumes new font selection scheme installed
-%\usepackage{amsmath} % assumes amsmath package installed
-%\usepackage{amssymb}  % assumes amsmath package installed
-
-
-
-%\author{ \parbox{3 in}{\centering Huibert Kwakernaak*
-%         \thanks{*Use the $\backslash$thanks command to put information here}\\
-%         Faculty of Electrical Engineering, Mathematics and Computer Science\\
-%         University of Twente\\
-%         7500 AE Enschede, The Netherlands\\
-%         {\tt\small h.kwakernaak@autsubmit.com}}
-%         \hspace*{ 0.5 in}
-%         \parbox{3 in}{ \centering Pradeep Misra**
-%         \thanks{**The footnote marks may be inserted manually}\\
-%        Department of Electrical Engineering \\
-%         Wright State University\\
-%         Dayton, OH 45435, USA\\
-%         {\tt\small pmisra@cs.wright.edu}}
-%}
 
 \author{Dolev Einav and Or Harpazi
 % $^{1}$
@@ -96,7 +55,7 @@ The process of detecting atmospheric muons and measuring their decay time, as ob
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{INTRODUCTION}
 
-lorem ipsum dolor sit amet.
+lorem ipsum dolor sit amet.\cite{sample}
 
 
 \appendix
