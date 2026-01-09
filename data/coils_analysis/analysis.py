@@ -12,11 +12,12 @@ def load_coil_data(file_path):
     return np.array(data)
 
 def parse_file(data):
-    outer_voltages, inner_voltages = [], []
+    time, outer_voltages, inner_voltages = [], [], []
     for n in data[1:]:
+        time.append(float(n[0]))
         outer_voltages.append(float(n[1]))
         inner_voltages.append(float(n[3]))
-    return outer_voltages, inner_voltages
+    return time, outer_voltages, inner_voltages
 
 def plot_voltages(outer_voltages, inner_voltages):
     # Sort by outer voltage
@@ -32,11 +33,23 @@ def plot_voltages(outer_voltages, inner_voltages):
     
     plt.show()
 
+def split(time, outer_voltages, inner_voltages, cut=0):
+    outer_max = outer_voltages.index(max(outer_voltages))
+    time_ascending, time_descending = time[:outer_max+1],  time[outer_max+1:]
+    outer_ascending, outer_descending = outer_voltages[:outer_max+1], outer_voltages[outer_max+1:]
+    inner_ascending, inner_descending = inner_voltages[:outer_max+1], inner_voltages[outer_max+1:]
+    if cut == 0:
+        return time_ascending, outer_ascending, inner_ascending 
+    else:
+        return time_descending, outer_descending, inner_descending
+
 def main():
     file_path = "/Users/orharpazi/Files/Laboratory/low_temperatures/data/csv/coils/3125-1.csv"
-    outer_voltages, inner_voltages = parse_file(load_coil_data(file_path))
+    time, outer_voltages, inner_voltages = parse_file(load_coil_data(file_path))
     print("1st Outer Voltage:", outer_voltages[0])
     print("1st Inner Voltage:", inner_voltages[0])
     plot_voltages(outer_voltages, inner_voltages)
+    plot_voltages(*split(time, outer_voltages, inner_voltages, cut=0)[1:])
+    plot_voltages(*split(time, outer_voltages, inner_voltages, cut=1)[1:])
 if __name__ == "__main__":
     main()
