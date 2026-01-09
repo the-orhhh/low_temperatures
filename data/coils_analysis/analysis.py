@@ -1,38 +1,6 @@
-import os
-import csv
-import numpy as np
-import matplotlib.pyplot as plt
 from scipy.integrate import cumulative_trapezoid
-
-def load_coil_data(file_path):
-    data = []
-    with open(file_path, 'r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            data.append([x for x in row])
-    return np.array(data)
-
-def parse_file(data):
-    time, outer_voltages, inner_voltages = [], [], []
-    for n in data[1:]:
-        time.append(float(n[0]))
-        outer_voltages.append(float(n[1]))
-        inner_voltages.append(float(n[3]))
-    return time, outer_voltages, inner_voltages
-
-def plot_voltages(outer_voltages, inner_voltages):
-    # Sort by outer voltage
-    sorted_data = sorted(zip(outer_voltages, inner_voltages))
-    outer_sorted, inner_sorted = zip(*sorted_data)
-    
-    plt.figure()
-    plt.plot(outer_sorted, inner_sorted, color='blue', alpha=0.6)
-    plt.xlabel('Outer Voltages')
-    plt.ylabel('Inner Voltages')
-    plt.title('Coil Voltages: Inner vs Outer')
-    plt.grid(True, alpha=0.3)
-    
-    plt.show()
+from data_loader import load_coil_data, parse_file
+from plotting import plot_voltages
 
 def split(time, outer_voltages, inner_voltages, cut=0):
     outer_max = outer_voltages.index(max(outer_voltages))
@@ -47,7 +15,7 @@ def split(time, outer_voltages, inner_voltages, cut=0):
 def plot_magnetization(time, outer_voltages, inner_voltages):
     t, outer, inner = split(time, outer_voltages, inner_voltages, cut=0)
     magnetization = cumulative_trapezoid(inner, t, initial=0.0)
-    plot_voltages(outer, magnetization)
+    plot_voltages(outer, magnetization, title='Magnetization vs Outer Voltage', ylabel='Magnetization')
 
 def main():
     file_path = "/Users/orharpazi/Files/Laboratory/low_temperatures/data/csv/coils/3125-1.csv"
