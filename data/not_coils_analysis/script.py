@@ -15,7 +15,7 @@ def process_file_with_filter(csv_path):
     
     # Filter: keep only data from max resistance onwards
     max_resistance_index = np.argmax(resistance)
-    data = data[time >= time[max_resistance_index+10]]
+    data = data[max_resistance_index+10:-20]
     time = data[:, 0]
     voltage = data[:, 1]
     resistance = data[:, 2]
@@ -80,14 +80,15 @@ for filename in filenames:
                 'filename': filename,
                 'voltage': result['voltage'],
                 'resistance': result['resistance'],
-                'max_dR_dV': result['max_dR_dV']
+                'max_dR_dV': result['max_dR_dV'],
+                'index-max_index': result['index']
             })
         except Exception as e:
             print(f"Error processing {filename}: {e}\n")
 
 # Write results to CSV
 with open(output_file, 'w', newline='') as f:
-    writer = csv.DictWriter(f, fieldnames=['filename', 'voltage', 'resistance', 'max_dR_dV'])
+    writer = csv.DictWriter(f, fieldnames=['filename', 'voltage', 'resistance', 'max_dR_dV', 'index-max_index'])
     writer.writeheader()
     writer.writerows(results)
 
